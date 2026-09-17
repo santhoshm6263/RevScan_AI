@@ -1,0 +1,20 @@
+{
+  "app": {
+    "name": "Demo",
+    "package": "com.example.demo"
+  },
+  "scan": {
+    "version": "1.0",
+    "screens_found": 0,
+    "elements_found": 0,
+    "steps": 0
+  },
+  "design": {
+    "primary_color": "#2563EB",
+    "background_color": "#FFFFFF",
+    "theme": "light"
+  },
+  "screens": [],
+  "journeys": [],
+  "transitions": []
+}

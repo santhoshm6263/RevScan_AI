@@ -1,0 +1,10 @@
+{
+  "status": "completed",
+  "package_name": "com.example.demo",
+  "step": 20,
+  "screens_found": 3,
+  "actions_executed": 20,
+  "visited_screens": [],
+  "visited_actions": [],
+  "error_message": null
+}
