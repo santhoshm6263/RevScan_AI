@@ -1,9 +1,9 @@
 {
-  "status": "completed",
-  "package_name": "com.example.demo",
-  "step": 20,
-  "screens_found": 3,
-  "actions_executed": 20,
+  "status": "stopped",
+  "package_name": "com.example.test",
+  "step": 1,
+  "screens_found": 1,
+  "actions_executed": 1,
   "visited_screens": [],
   "visited_actions": [],
   "error_message": null

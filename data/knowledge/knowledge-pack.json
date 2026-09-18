@@ -1,7 +1,7 @@
 {
   "app": {
-    "name": "Demo",
-    "package": "com.example.demo"
+    "name": "Test",
+    "package": "com.example.test"
   },
   "scan": {
     "version": "1.0",
