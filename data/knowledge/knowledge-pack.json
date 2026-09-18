@@ -1,128 +1,38 @@
 {
   "app": {
-    "name": "Windows Terminal",
-    "package": "Microsoft.WindowsTerminal_8wekyb3d8bbwe",
-    "platform": "windows",
-    "developer": "Microsoft Corporation",
-    "category": "Developer Tools",
-    "rating": 4.8,
-    "icon_url": "https://store-images.s-microsoft.com/image/apps.43806.9007199266245907.0375a855-8d80-4927-aa82-88892f392ddb.83984ee1-b75d-4f11-9a70-8e6792348509?mode=scale&q=90&h=200&w=200&background=%230078D7",
-    "store_url": "https://apps.microsoft.com/detail/9N0DX20HK701",
-    "description": "The Windows Terminal is a modern, fast, efficient, powerful, and productive terminal application for users of command-line tools and shells.",
-    "version": "1.19.10573.0"
+    "name": "Test",
+    "package": "com.example.test",
+    "platform": "android",
+    "developer": "Google Play Developer",
+    "category": "Application",
+    "rating": 4.5,
+    "icon_url": "https://raw.githubusercontent.com/google/material-design-icons/master/png/action/android/materialicons/48dp/2x/baseline_android_black_48dp.png",
+    "store_url": "https://play.google.com/store/apps/details?id=com.example.test&hl=en&gl=US",
+    "description": "Android application package 'com.example.test' from Google Play Store.",
+    "version": "1.0.0"
   },
   "scan": {
     "version": "1.0",
-    "screens_found": 4,
-    "elements_found": 14,
-    "steps": 7
+    "screens_found": 1,
+    "elements_found": 5,
+    "steps": 2
   },
   "design": {
-    "primary_color": "#2865EB",
-    "background_color": "#F8FAFC",
+    "primary_color": "#2664EB",
+    "background_color": "#FFFFFF",
     "theme": "light"
   },
   "screens": [
     {
       "id": "screen_001",
-      "name": "Login",
-      "purpose": "User authentication screen",
+      "name": "Main Dashboard",
+      "purpose": "Main application landing dashboard and activity overview",
       "screenshot": "screenshots/screen_step_1.png",
-      "elements": [
-        {
-          "id": "title",
-          "type": "text",
-          "text": "RevScan Demo",
-          "bounds": [
-            50,
-            100,
-            1030,
-            220
-          ],
-          "clickable": false,
-          "input": false
-        },
-        {
-          "id": "input_email",
-          "type": "input",
-          "text": "Enter Email",
-          "bounds": [
-            100,
-            300,
-            980,
-            420
-          ],
-          "clickable": true,
-          "input": true
-        },
-        {
-          "id": "input_password",
-          "type": "input",
-          "text": "Password",
-          "bounds": [
-            100,
-            450,
-            980,
-            570
-          ],
-          "clickable": true,
-          "input": true
-        },
-        {
-          "id": "btn_login",
-          "type": "button",
-          "text": "Sign In",
-          "bounds": [
-            100,
-            620,
-            980,
-            740
-          ],
-          "clickable": true,
-          "input": false
-        },
-        {
-          "id": "btn_register",
-          "type": "button",
-          "text": "Create New Account",
-          "bounds": [
-            100,
-            770,
-            980,
-            890
-          ],
-          "clickable": true,
-          "input": false
-        }
-      ],
-      "actions": [
-        {
-          "type": "type",
-          "target_id": "input_email",
-          "text": "test@example.com",
-          "direction": null
-        },
-        {
-          "type": "type",
-          "target_id": "input_password",
-          "text": "test@example.com",
-          "direction": null
-        }
-      ],
-      "next_screens": [
-        "screen_002"
-      ]
-    },
-    {
-      "id": "screen_002",
-      "name": "Profile",
-      "purpose": "User profile and account settings",
-      "screenshot": "screenshots/screen_step_2.png",
       "elements": [
         {
           "id": "dashboard_title",
           "type": "text",
-          "text": "Home Dashboard",
+          "text": "Test - Main Dashboard",
           "bounds": [
             50,
             80,
@@ -133,9 +43,9 @@
           "input": false
         },
         {
-          "id": "search_box",
+          "id": "search_field",
           "type": "input",
-          "text": "Search products",
+          "text": "Search Test...",
           "bounds": [
             50,
             200,
@@ -146,9 +56,9 @@
           "input": true
         },
         {
-          "id": "btn_catalog",
+          "id": "btn_explore_feed",
           "type": "button",
-          "text": "Browse Catalog",
+          "text": "Explore Application Feed",
           "bounds": [
             50,
             340,
@@ -159,9 +69,9 @@
           "input": false
         },
         {
-          "id": "btn_profile",
+          "id": "btn_featured",
           "type": "button",
-          "text": "View Profile",
+          "text": "Featured Content & Highlights",
           "bounds": [
             50,
             500,
@@ -172,9 +82,9 @@
           "input": false
         },
         {
-          "id": "btn_settings",
+          "id": "btn_profile_nav",
           "type": "button",
-          "text": "Settings",
+          "text": "User Profile & Preferences",
           "bounds": [
             50,
             660,
@@ -188,186 +98,14 @@
       "actions": [
         {
           "type": "type",
-          "target_id": "search_box",
+          "target_id": "search_field",
           "text": "test@example.com",
           "direction": null
-        },
-        {
-          "type": "tap",
-          "target_id": "btn_catalog",
-          "text": null,
-          "direction": null
         }
       ],
-      "next_screens": [
-        "screen_003"
-      ]
-    },
-    {
-      "id": "screen_003",
-      "name": "Checkout",
-      "purpose": "Shopping cart and order checkout screen",
-      "screenshot": "screenshots/screen_step_3.png",
-      "elements": [
-        {
-          "id": "catalog_header",
-          "type": "text",
-          "text": "Product Catalog",
-          "bounds": [
-            50,
-            80,
-            1030,
-            180
-          ],
-          "clickable": false,
-          "input": false
-        },
-        {
-          "id": "item_1_title",
-          "type": "text",
-          "text": "Item Details: Premium Headphones",
-          "bounds": [
-            50,
-            220,
-            1030,
-            320
-          ],
-          "clickable": false,
-          "input": false
-        },
-        {
-          "id": "btn_add_cart",
-          "type": "button",
-          "text": "Add to Cart",
-          "bounds": [
-            50,
-            340,
-            1030,
-            460
-          ],
-          "clickable": true,
-          "input": false
-        },
-        {
-          "id": "btn_checkout",
-          "type": "button",
-          "text": "Proceed to Checkout",
-          "bounds": [
-            50,
-            500,
-            1030,
-            620
-          ],
-          "clickable": true,
-          "input": false
-        }
-      ],
-      "actions": [
-        {
-          "type": "tap",
-          "target_id": "btn_add_cart",
-          "text": null,
-          "direction": null
-        },
-        {
-          "type": "tap",
-          "target_id": "btn_checkout",
-          "text": null,
-          "direction": null
-        }
-      ],
-      "next_screens": [
-        "screen_004"
-      ]
-    },
-    {
-      "id": "screen_004",
-      "name": "Screen_005",
-      "purpose": "Application functional view",
-      "screenshot": "screenshots/screen_step_4.png",
-      "elements": [],
-      "actions": [
-        {
-          "type": "scroll",
-          "target_id": null,
-          "text": null,
-          "direction": "down"
-        }
-      ],
-      "next_screens": [
-        "screen_001"
-      ]
+      "next_screens": []
     }
   ],
-  "journeys": [
-    {
-      "id": "journey_001",
-      "name": "Flow from Login",
-      "description": "Navigation flow starting from screen_001",
-      "steps": [
-        {
-          "screen_id": "screen_001",
-          "action": "launch",
-          "screen_name": "Login"
-        },
-        {
-          "screen_id": "screen_002",
-          "action": "type:input_email",
-          "screen_name": "Profile"
-        },
-        {
-          "screen_id": "screen_003",
-          "action": "type:search_box",
-          "screen_name": "Checkout"
-        },
-        {
-          "screen_id": "screen_004",
-          "action": "tap:btn_add_cart",
-          "screen_name": "Screen_005"
-        },
-        {
-          "screen_id": "screen_001",
-          "action": "scroll:down",
-          "screen_name": "Login"
-        }
-      ]
-    }
-  ],
-  "transitions": [
-    {
-      "from": "screen_001",
-      "action": "type:input_email",
-      "to": "screen_002"
-    },
-    {
-      "from": "screen_002",
-      "action": "type:search_box",
-      "to": "screen_003"
-    },
-    {
-      "from": "screen_003",
-      "action": "tap:btn_add_cart",
-      "to": "screen_004"
-    },
-    {
-      "from": "screen_004",
-      "action": "scroll:down",
-      "to": "screen_001"
-    },
-    {
-      "from": "screen_001",
-      "action": "type:input_password",
-      "to": "screen_002"
-    },
-    {
-      "from": "screen_002",
-      "action": "tap:btn_catalog",
-      "to": "screen_003"
-    },
-    {
-      "from": "screen_003",
-      "action": "tap:btn_checkout",
-      "to": "screen_004"
-    }
-  ]
+  "journeys": [],
+  "transitions": []
 }

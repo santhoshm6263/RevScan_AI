@@ -1,56 +1,23 @@
 {
-  "status": "completed",
-  "package_name": "Microsoft.WindowsTerminal_8wekyb3d8bbwe",
-  "step": 8,
-  "screens_found": 4,
-  "actions_executed": 7,
+  "status": "stopped",
+  "package_name": "com.example.test",
+  "step": 1,
+  "screens_found": 1,
+  "actions_executed": 2,
   "visited_screens": [
-    "screen_001",
-    "screen_002",
-    "screen_003",
-    "screen_004"
+    "screen_001"
   ],
   "visited_actions": [
     {
       "type": "type",
-      "target_id": "input_email",
+      "target_id": "search_field",
       "text": "test@example.com",
       "direction": null
     },
     {
       "type": "type",
-      "target_id": "search_box",
+      "target_id": "search_field",
       "text": "test@example.com",
-      "direction": null
-    },
-    {
-      "type": "tap",
-      "target_id": "btn_add_cart",
-      "text": null,
-      "direction": null
-    },
-    {
-      "type": "scroll",
-      "target_id": null,
-      "text": null,
-      "direction": "down"
-    },
-    {
-      "type": "type",
-      "target_id": "input_password",
-      "text": "test@example.com",
-      "direction": null
-    },
-    {
-      "type": "tap",
-      "target_id": "btn_catalog",
-      "text": null,
-      "direction": null
-    },
-    {
-      "type": "tap",
-      "target_id": "btn_checkout",
-      "text": null,
       "direction": null
     }
   ],

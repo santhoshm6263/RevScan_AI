@@ -126,7 +126,7 @@ class Orchestrator:
 
                 # Step 1: Dump UI Hierarchy XML and parse raw nodes
                 xml_filename = f"hierarchy_step_{step}.xml"
-                xml_path = ui_parser.dump_hierarchy(xml_filename)
+                xml_path = ui_parser.dump_hierarchy(xml_filename, app=app, step=step)
                 raw_nodes = ui_parser.parse_xml(xml_path) if xml_path else []
 
                 # Step 2: Normalize UI elements
@@ -134,7 +134,11 @@ class Orchestrator:
 
                 # Step 3: Capture screenshot
                 screenshot_filename = f"screen_step_{step}.png"
-                screenshot_path = screenshot_manager.capture_screenshot(screenshot_filename)
+                screenshot_path = screenshot_manager.capture_screenshot(
+                    filename=screenshot_filename,
+                    app=app,
+                    step=step
+                )
                 rel_screenshot_path = (
                     screenshot_manager.get_relative_path(screenshot_path)
                     if screenshot_path else ""
