@@ -1,20 +1,365 @@
 {
   "app": {
-    "name": "Test",
-    "package": "com.example.test"
+    "name": "Demo",
+    "package": "com.example.demo"
   },
   "scan": {
     "version": "1.0",
-    "screens_found": 0,
-    "elements_found": 0,
-    "steps": 0
+    "screens_found": 4,
+    "elements_found": 14,
+    "steps": 7
   },
   "design": {
-    "primary_color": "#2563EB",
-    "background_color": "#FFFFFF",
+    "primary_color": "#2865EB",
+    "background_color": "#F8FAFC",
     "theme": "light"
   },
-  "screens": [],
-  "journeys": [],
-  "transitions": []
+  "screens": [
+    {
+      "id": "screen_001",
+      "name": "Login",
+      "purpose": "User authentication screen",
+      "screenshot": "screenshots/screen_step_1.png",
+      "elements": [
+        {
+          "id": "title",
+          "type": "text",
+          "text": "RevScan Demo",
+          "bounds": [
+            50,
+            100,
+            1030,
+            220
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "input_email",
+          "type": "input",
+          "text": "Enter Email",
+          "bounds": [
+            100,
+            300,
+            980,
+            420
+          ],
+          "clickable": true,
+          "input": true
+        },
+        {
+          "id": "input_password",
+          "type": "input",
+          "text": "Password",
+          "bounds": [
+            100,
+            450,
+            980,
+            570
+          ],
+          "clickable": true,
+          "input": true
+        },
+        {
+          "id": "btn_login",
+          "type": "button",
+          "text": "Sign In",
+          "bounds": [
+            100,
+            620,
+            980,
+            740
+          ],
+          "clickable": true,
+          "input": false
+        },
+        {
+          "id": "btn_register",
+          "type": "button",
+          "text": "Create New Account",
+          "bounds": [
+            100,
+            770,
+            980,
+            890
+          ],
+          "clickable": true,
+          "input": false
+        }
+      ],
+      "actions": [
+        {
+          "type": "type",
+          "target_id": "input_email",
+          "text": "test@example.com",
+          "direction": null
+        },
+        {
+          "type": "type",
+          "target_id": "input_password",
+          "text": "test@example.com",
+          "direction": null
+        }
+      ],
+      "next_screens": [
+        "screen_002"
+      ]
+    },
+    {
+      "id": "screen_002",
+      "name": "Profile",
+      "purpose": "User profile and account settings",
+      "screenshot": "screenshots/screen_step_2.png",
+      "elements": [
+        {
+          "id": "dashboard_title",
+          "type": "text",
+          "text": "Home Dashboard",
+          "bounds": [
+            50,
+            80,
+            1030,
+            180
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "search_box",
+          "type": "input",
+          "text": "Search products",
+          "bounds": [
+            50,
+            200,
+            1030,
+            300
+          ],
+          "clickable": true,
+          "input": true
+        },
+        {
+          "id": "btn_catalog",
+          "type": "button",
+          "text": "Browse Catalog",
+          "bounds": [
+            50,
+            340,
+            1030,
+            460
+          ],
+          "clickable": true,
+          "input": false
+        },
+        {
+          "id": "btn_profile",
+          "type": "button",
+          "text": "View Profile",
+          "bounds": [
+            50,
+            500,
+            1030,
+            620
+          ],
+          "clickable": true,
+          "input": false
+        },
+        {
+          "id": "btn_settings",
+          "type": "button",
+          "text": "Settings",
+          "bounds": [
+            50,
+            660,
+            1030,
+            780
+          ],
+          "clickable": true,
+          "input": false
+        }
+      ],
+      "actions": [
+        {
+          "type": "type",
+          "target_id": "search_box",
+          "text": "test@example.com",
+          "direction": null
+        },
+        {
+          "type": "tap",
+          "target_id": "btn_catalog",
+          "text": null,
+          "direction": null
+        }
+      ],
+      "next_screens": [
+        "screen_003"
+      ]
+    },
+    {
+      "id": "screen_003",
+      "name": "Checkout",
+      "purpose": "Shopping cart and order checkout screen",
+      "screenshot": "screenshots/screen_step_3.png",
+      "elements": [
+        {
+          "id": "catalog_header",
+          "type": "text",
+          "text": "Product Catalog",
+          "bounds": [
+            50,
+            80,
+            1030,
+            180
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "item_1_title",
+          "type": "text",
+          "text": "Item Details: Premium Headphones",
+          "bounds": [
+            50,
+            220,
+            1030,
+            320
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "btn_add_cart",
+          "type": "button",
+          "text": "Add to Cart",
+          "bounds": [
+            50,
+            340,
+            1030,
+            460
+          ],
+          "clickable": true,
+          "input": false
+        },
+        {
+          "id": "btn_checkout",
+          "type": "button",
+          "text": "Proceed to Checkout",
+          "bounds": [
+            50,
+            500,
+            1030,
+            620
+          ],
+          "clickable": true,
+          "input": false
+        }
+      ],
+      "actions": [
+        {
+          "type": "tap",
+          "target_id": "btn_add_cart",
+          "text": null,
+          "direction": null
+        },
+        {
+          "type": "tap",
+          "target_id": "btn_checkout",
+          "text": null,
+          "direction": null
+        }
+      ],
+      "next_screens": [
+        "screen_004"
+      ]
+    },
+    {
+      "id": "screen_004",
+      "name": "Screen_005",
+      "purpose": "Application functional view",
+      "screenshot": "screenshots/screen_step_4.png",
+      "elements": [],
+      "actions": [
+        {
+          "type": "scroll",
+          "target_id": null,
+          "text": null,
+          "direction": "down"
+        }
+      ],
+      "next_screens": [
+        "screen_001"
+      ]
+    }
+  ],
+  "journeys": [
+    {
+      "id": "journey_001",
+      "name": "Flow from Login",
+      "description": "Navigation flow starting from screen_001",
+      "steps": [
+        {
+          "screen_id": "screen_001",
+          "action": "launch",
+          "screen_name": "Login"
+        },
+        {
+          "screen_id": "screen_002",
+          "action": "type:input_email",
+          "screen_name": "Profile"
+        },
+        {
+          "screen_id": "screen_003",
+          "action": "type:search_box",
+          "screen_name": "Checkout"
+        },
+        {
+          "screen_id": "screen_004",
+          "action": "tap:btn_add_cart",
+          "screen_name": "Screen_005"
+        },
+        {
+          "screen_id": "screen_001",
+          "action": "scroll:down",
+          "screen_name": "Login"
+        }
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "from": "screen_001",
+      "action": "type:input_email",
+      "to": "screen_002"
+    },
+    {
+      "from": "screen_002",
+      "action": "type:search_box",
+      "to": "screen_003"
+    },
+    {
+      "from": "screen_003",
+      "action": "tap:btn_add_cart",
+      "to": "screen_004"
+    },
+    {
+      "from": "screen_004",
+      "action": "scroll:down",
+      "to": "screen_001"
+    },
+    {
+      "from": "screen_001",
+      "action": "type:input_password",
+      "to": "screen_002"
+    },
+    {
+      "from": "screen_002",
+      "action": "tap:btn_catalog",
+      "to": "screen_003"
+    },
+    {
+      "from": "screen_003",
+      "action": "tap:btn_checkout",
+      "to": "screen_004"
+    }
+  ]
 }

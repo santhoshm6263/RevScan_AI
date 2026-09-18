@@ -227,7 +227,7 @@ class KnowledgeGenerator:
             ]
 
             for s in self.screens_map.values():
-                lines.append(f"### {s.name} (`{s.id}`) — {s.purpose}")
+                lines.append(f"### {s.name} (`{s.id}`) - {s.purpose}")
                 interactive = [e for e in s.elements if e.clickable or e.input]
                 if interactive:
                     for e in interactive[:10]:  # Keep compact

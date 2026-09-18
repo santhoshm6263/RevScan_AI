@@ -138,3 +138,22 @@ def test_api_endpoints():
     assert "app" in data
     assert "scan" in data
     assert "design" in data
+
+
+def test_orchestrator_integration():
+    """Verify orchestrator autonomous exploration execution."""
+    from src.core.orchestrator import orchestrator
+    import time
+    
+    started = orchestrator.start_scan("com.example.test")
+    assert started is True or orchestrator.is_running is True
+    
+    # Allow orchestrator to perform at least 1 step
+    time.sleep(2.0)
+    status = orchestrator.get_status()
+    assert status.status in ["running", "completed"]
+    assert status.step >= 1
+    
+    orchestrator.stop_scan()
+    assert orchestrator.is_running is False
+
