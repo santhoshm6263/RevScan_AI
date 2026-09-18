@@ -1,12 +1,14 @@
 """Streamlit Dashboard for RevScan AI (Spec 10, Spec 11 - Member 4)."""
 import json
+import time
 import streamlit as st
 from dashboard.components import (
     api_client,
     inject_styles,
     render_header,
     render_status_badge,
-    render_metric_card
+    render_metric_card,
+    generate_graphviz_dot
 )
 
 # Page configuration
@@ -30,15 +32,20 @@ nav_page = st.sidebar.radio(
     index=0
 )
 
+# Auto-refresh control for live scan monitoring
+status_data = api_client.get_status()
+current_status = status_data.get("status", "idle")
+
+if current_status == "running":
+    st.sidebar.info("🔄 Scan in progress... Auto-refreshing status.")
+
 # -------------------------------------------------------------
 # 10.1 Dashboard Page
 # -------------------------------------------------------------
 if nav_page == "Dashboard":
     render_header(title="Dashboard", subtitle="Autonomous Android application exploration control center")
 
-    status_data = api_client.get_status()
     pack_data = api_client.get_knowledge_pack()
-    current_status = status_data.get("status", "idle")
 
     # Control Panel
     with st.container():
@@ -81,14 +88,19 @@ if nav_page == "Dashboard":
     st.subheader("Exploration Overview")
     m_col1, m_col2, m_col3, m_col4 = st.columns(4)
 
+    screens_found = status_data.get("screens_found", 0)
+    elements_found = pack_data.get("scan", {}).get("elements_found", 0)
+    journeys_count = len(pack_data.get("journeys", []))
+    actions_executed = status_data.get("actions_executed", 0)
+
     with m_col1:
-        render_metric_card("Discovered Screens", status_data.get("screens_found", 0))
+        render_metric_card("Discovered Screens", screens_found)
     with m_col2:
-        render_metric_card("Elements Found", pack_data.get("scan", {}).get("elements_found", 0))
+        render_metric_card("Elements Found", elements_found)
     with m_col3:
-        render_metric_card("Journeys", len(pack_data.get("journeys", [])))
+        render_metric_card("Journeys", journeys_count)
     with m_col4:
-        render_metric_card("Actions Executed", status_data.get("actions_executed", 0))
+        render_metric_card("Actions Executed", actions_executed)
 
 # -------------------------------------------------------------
 # 10.2 App Map Page
@@ -101,21 +113,29 @@ elif nav_page == "App Map":
     screens = pack_data.get("screens", [])
 
     st.markdown('<div class="content-card">', unsafe_allow_html=True)
-    st.subheader("Visual Screen Hierarchy")
+    st.subheader("Visual Screen Hierarchy & Graph")
+
+    dot_string = generate_graphviz_dot(transitions, screens)
+    st.graphviz_chart(dot_string, use_container_width=True)
 
     if not transitions and not screens:
-        st.info("No screen transitions discovered yet. Start a scan to build the App Map.")
-        # Render demonstration hierarchy as per spec
-        st.markdown("```text\nLogin\n  ↓\nHome ├── Products\n     │     ↓\n     │   Details\n     └── Profile\n```")
-    else:
-        st.markdown("#### Discovered Screen Transitions")
-        for t in transitions:
-            from_s = t.get("from", "Unknown")
-            action = t.get("action", "action")
-            to_s = t.get("to", "Unknown")
-            st.markdown(f"- **{from_s}** ──`[{action}]`──▶ **{to_s}**")
+        st.info("Showing sample exploration graph above. Launch an autonomous scan to build your live App Map.")
 
     st.markdown('</div>', unsafe_allow_html=True)
+
+    if transitions:
+        st.markdown('<div class="content-card">', unsafe_allow_html=True)
+        st.subheader("Discovered Screen Transitions")
+        trans_table = [
+            {
+                "From Screen": t.get("from", "Unknown"),
+                "Action Taken": t.get("action", "action"),
+                "To Screen": t.get("to", "Unknown")
+            }
+            for t in transitions
+        ]
+        st.dataframe(trans_table, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 # -------------------------------------------------------------
 # 10.3 Screens Page
@@ -148,21 +168,23 @@ elif nav_page == "Screens":
 
                 screenshot_path = selected_screen.get("screenshot")
                 if screenshot_path:
-                    st.image(screenshot_path, caption=f"Screen: {selected_screen.get('name')}", use_container_width=True)
+                    img_url = api_client.get_screenshot_url(screenshot_path)
+                    if img_url:
+                        st.image(img_url, caption=f"Screen Screenshot: {selected_screen.get('name')}", use_container_width=True)
 
-                st.markdown("#### Elements")
+                st.markdown("#### Interactive Elements")
                 elems = selected_screen.get("elements", [])
                 if elems:
                     st.dataframe(elems, use_container_width=True)
                 else:
                     st.caption("No elements recorded for this screen.")
 
-                st.markdown("#### Next Screens")
+                st.markdown("#### Next Screens & Outward Transitions")
                 next_s = selected_screen.get("next_screens", [])
                 if next_s:
-                    st.write(", ".join(next_s))
+                    st.write(", ".join([f"`{ns}`" for ns in next_s]))
                 else:
-                    st.caption("No outward transitions discovered.")
+                    st.caption("No outward transitions discovered yet.")
 
                 st.markdown('</div>', unsafe_allow_html=True)
 
@@ -176,7 +198,7 @@ elif nav_page == "Knowledge Pack":
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        render_metric_card("Screen Count", pack_data.get("scan", {}).get("screens_found", 0))
+        render_metric_card("Screen Count", pack_data.get("scan", {}).get("screens_found", len(pack_data.get("screens", []))))
     with col2:
         render_metric_card("Element Count", pack_data.get("scan", {}).get("elements_found", 0))
     with col3:
@@ -196,3 +218,4 @@ elif nav_page == "Knowledge Pack":
 
     st.json(pack_data)
     st.markdown('</div>', unsafe_allow_html=True)
+

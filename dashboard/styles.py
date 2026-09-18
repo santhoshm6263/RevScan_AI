@@ -31,7 +31,7 @@ html, body, [class*="css"] {{
     background-color: {SURFACE};
     border-bottom: 1px solid {BORDER};
     padding: 1.25rem 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -88,16 +88,18 @@ html, body, [class*="css"] {{
 /* Status Badges */
 .badge {{
     display: inline-block;
-    padding: 0.25rem 0.75rem;
+    padding: 0.35rem 0.85rem;
     border-radius: 9999px;
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.05em;
 }}
 
 .badge-idle {{
     background-color: #F1F5F9;
     color: {MUTED};
+    border: 1px solid {BORDER};
 }}
 
 .badge-running {{
@@ -121,6 +123,7 @@ html, body, [class*="css"] {{
 .badge-error {{
     background-color: #FEF2F2;
     color: {DANGER};
+    border: 1px solid #FECACA;
 }}
 
 /* Content Card */
@@ -139,6 +142,16 @@ html, body, [class*="css"] {{
     font-size: 1.15rem;
     font-weight: 600;
     color: {TEXT};
+}}
+
+/* Graph Container */
+.graph-container {{
+    background-color: {SURFACE};
+    border: 1px solid {BORDER};
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    overflow-x: auto;
 }}
 
 /* Button styling override */
@@ -170,3 +183,4 @@ button[kind="secondary"] {{
 }}
 </style>
 """
+
