@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  revscan-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: revscan-ai-app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"   # FastAPI Backend & API docs
+      - "8501:8501"   # Streamlit Dashboard UI
+    environment:
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - API_BASE_URL=http://localhost:8000
+      - MAX_STEPS=20
+      - AI_PROVIDER=mock
+      - AI_MODEL_NAME=gemini-1.5-flash
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

@@ -1,7 +1,15 @@
 {
   "app": {
-    "name": "Demo",
-    "package": "com.example.demo"
+    "name": "Windows Terminal",
+    "package": "Microsoft.WindowsTerminal_8wekyb3d8bbwe",
+    "platform": "windows",
+    "developer": "Microsoft Corporation",
+    "category": "Developer Tools",
+    "rating": 4.8,
+    "icon_url": "https://store-images.s-microsoft.com/image/apps.43806.9007199266245907.0375a855-8d80-4927-aa82-88892f392ddb.83984ee1-b75d-4f11-9a70-8e6792348509?mode=scale&q=90&h=200&w=200&background=%230078D7",
+    "store_url": "https://apps.microsoft.com/detail/9N0DX20HK701",
+    "description": "The Windows Terminal is a modern, fast, efficient, powerful, and productive terminal application for users of command-line tools and shells.",
+    "version": "1.19.10573.0"
   },
   "scan": {
     "version": "1.0",

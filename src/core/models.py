@@ -57,9 +57,17 @@ class JourneyModel(BaseModel):
 
 
 class AppInfo(BaseModel):
-    """Application metadata."""
+    """Application metadata across Google Play Store, Microsoft Store, and Custom Apps."""
     name: str = "Demo App"
     package: str = "com.example.demo"
+    platform: str = "android"  # "android", "windows", "custom"
+    developer: Optional[str] = "Unknown"
+    category: Optional[str] = "Application"
+    rating: Optional[float] = 4.5
+    icon_url: Optional[str] = ""
+    store_url: Optional[str] = ""
+    description: Optional[str] = ""
+    version: Optional[str] = "1.0.0"
 
 
 class ScanMeta(BaseModel):
@@ -90,11 +98,16 @@ class KnowledgePackModel(BaseModel):
 # API Models (Spec 8.0)
 class StartScanRequest(BaseModel):
     package_name: str
+    platform: Optional[str] = "android"
+    store_url: Optional[str] = None
+    app_name: Optional[str] = None
 
 
 class StartScanResponse(BaseModel):
     status: str = "started"
     package_name: str
+    app_name: Optional[str] = None
+    platform: Optional[str] = "android"
 
 
 class StopScanResponse(BaseModel):

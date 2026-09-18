@@ -1,14 +1,17 @@
-"""FastAPI backend application for RevScan AI (Spec 8.0, Spec 12 - Member 5)."""
+"""FastAPI backend application for RevScan AI (Spec 8.0, Spec 12 - Member 5).
+Includes store app metadata resolution and autonomous exploration APIs.
+"""
 import os
-from fastapi import FastAPI, HTTPException, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 from src.core.config import settings
 from src.core.orchestrator import orchestrator
 from src.core.state import state_manager
 from src.knowledge.knowledge_pack import knowledge_generator
+from src.store.resolver import app_resolver, ResolvedApp
 from src.core.models import (
     StartScanRequest,
     StartScanResponse,
@@ -22,7 +25,7 @@ from src.core.models import (
 
 app = FastAPI(
     title="RevScan AI API",
-    description="Autonomous Android App Explorer API",
+    description="Autonomous Android & Multi-Platform App Explorer API",
     version="1.0.0"
 )
 
@@ -45,21 +48,54 @@ def read_root():
     return {
         "app": "RevScan AI",
         "version": "1.0.0",
-        "status": "ready"
+        "status": "ready",
+        "features": ["google_play_store", "microsoft_store", "custom_apps", "autonomous_scan"]
     }
+
+
+@app.post("/store/resolve", response_model=ResolvedApp)
+def resolve_store_app(query: Dict[str, Any] = Body(...)):
+    """Resolves an app query/URL from Google Play Store or Microsoft Store into authentic metadata."""
+    input_query = query.get("query") or query.get("package_name") or ""
+    platform = query.get("platform")
+    if not input_query:
+        raise HTTPException(status_code=400, detail="Query or package_name parameter is required")
+    return app_resolver.resolve(input_query, platform_hint=platform)
+
+
+@app.get("/store/presets")
+def get_store_presets():
+    """Retrieves curated authentic app presets for Google Play Store and Microsoft Store."""
+    return app_resolver.get_presets()
 
 
 @app.post("/scan/start", response_model=StartScanResponse)
 def start_scan(request: StartScanRequest):
-    """Start autonomous scan for the target Android app package."""
-    knowledge_generator.set_app_info(
-        name=request.package_name.split(".")[-1].capitalize(),
-        package=request.package_name
+    """Start autonomous scan for target app package, Play Store app, or MS Store app."""
+    # Resolve authentic app metadata
+    resolved = app_resolver.resolve(request.package_name, platform_hint=request.platform)
+    app_name = request.app_name or resolved.name
+
+    started = orchestrator.start_scan(
+        package_name=resolved.package,
+        platform=resolved.platform,
+        app_name=app_name
     )
-    started = orchestrator.start_scan(request.package_name)
+
     if not started and state_manager.status == "running":
-        return StartScanResponse(status="already_running", package_name=request.package_name)
-    return StartScanResponse(status="started", package_name=request.package_name)
+        return StartScanResponse(
+            status="already_running",
+            package_name=resolved.package,
+            app_name=app_name,
+            platform=resolved.platform
+        )
+
+    return StartScanResponse(
+        status="started",
+        package_name=resolved.package,
+        app_name=app_name,
+        platform=resolved.platform
+    )
 
 
 @app.post("/scan/stop", response_model=StopScanResponse)

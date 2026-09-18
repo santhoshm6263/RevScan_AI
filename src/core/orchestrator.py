@@ -1,14 +1,17 @@
 """Exploration Orchestrator for RevScan AI (Spec 12 - Member 5).
-Coordinates Android controller, AI Agent, UI Parser, Screen Analyzer, and Knowledge Generator.
+Coordinates Android controller, AI Agent, UI Parser, Screen Analyzer, Store Resolver, and Knowledge Generator.
 """
 import logging
+import os
+import subprocess
+import sys
 import threading
 import time
 from typing import Optional
 
 from src.core.config import settings
 from src.core.state import state_manager
-from src.core.models import ScanStatusResponse, ActionModel
+from src.core.models import ScanStatusResponse, ActionModel, AppInfo
 from src.android.adb_controller import adb_controller
 from src.android.screenshot import screenshot_manager
 from src.android.ui_parser import ui_parser
@@ -17,6 +20,7 @@ from src.knowledge.screen_analyzer import screen_analyzer
 from src.knowledge.design_analyzer import design_analyzer
 from src.knowledge.knowledge_pack import knowledge_generator
 from src.agent.explorer import explorer_agent
+from src.store.resolver import app_resolver, ResolvedApp
 
 logger = logging.getLogger(__name__)
 
@@ -29,26 +33,47 @@ class Orchestrator:
         self._thread: Optional[threading.Thread] = None
         self._lock = threading.Lock()
 
-    def start_scan(self, package_name: str) -> bool:
-        """Start autonomous scan in a background thread."""
+    def start_scan(
+        self,
+        package_name: str,
+        platform: Optional[str] = "android",
+        app_name: Optional[str] = None
+    ) -> bool:
+        """Start autonomous scan in a background thread for Android, MS Store, or Custom Apps."""
         with self._lock:
             if self.is_running:
                 return False
 
             self.is_running = True
 
+            # Resolve authentic app metadata (Play Store, MS Store, or Custom)
+            resolved_app = app_resolver.resolve(package_name, platform_hint=platform)
+            if app_name:
+                resolved_app.name = app_name
+
             # Initialize Knowledge structures and screen analyzer
             knowledge_generator.reset()
-            app_name = package_name.split(".")[-1].capitalize() if package_name else "App"
-            knowledge_generator.set_app_info(name=app_name, package=package_name)
+            app_info = AppInfo(
+                name=resolved_app.name,
+                package=resolved_app.package,
+                platform=resolved_app.platform,
+                developer=resolved_app.developer,
+                category=resolved_app.category,
+                rating=resolved_app.rating,
+                icon_url=resolved_app.icon_url,
+                store_url=resolved_app.store_url,
+                description=resolved_app.description,
+                version=resolved_app.version
+            )
+            knowledge_generator.set_app_info(app_info_obj=app_info)
             screen_analyzer.reset()
 
             # Initialize scan state
-            state_manager.start_scan(package_name)
+            state_manager.start_scan(resolved_app.package)
 
             self._thread = threading.Thread(
                 target=self._run_loop,
-                args=(package_name,),
+                args=(resolved_app,),
                 daemon=True
             )
             self._thread.start()
@@ -64,14 +89,31 @@ class Orchestrator:
         """Get the current scan status."""
         return state_manager.get_status_response()
 
-    def _run_loop(self, package_name: str):
+    def _launch_target(self, app: ResolvedApp):
+        """Launches target app on Android or Windows environment."""
+        if app.platform == "windows":
+            try:
+                if app.protocol_or_intent:
+                    logger.info(f"[Orchestrator] Launching Windows app via protocol: {app.protocol_or_intent}")
+                    os.system(f"start {app.protocol_or_intent}")
+                elif sys.platform == "win32":
+                    logger.info(f"[Orchestrator] Launching Windows app via start: {app.package}")
+                    subprocess.run(["powershell", "-Command", f"Start-Process -FilePath '{app.package}'"],
+                                   capture_output=True, timeout=5)
+            except Exception as e:
+                logger.debug(f"[Orchestrator] Windows launch attempt info: {e}")
+        else:
+            # Android app launch
+            adb_controller.wake_and_unlock()
+            adb_controller.launch_app(app.package)
+
+    def _run_loop(self, app: ResolvedApp):
         """Autonomous exploration loop (Spec 2.0 & Spec 8.0)."""
-        logger.info(f"[Orchestrator] Launching autonomous exploration for '{package_name}'...")
+        logger.info(f"[Orchestrator] Launching autonomous exploration for '{app.name}' ({app.package}) [{app.platform}]...")
 
         try:
-            # 1. Wake & unlock device, then launch target app
-            adb_controller.wake_and_unlock()
-            adb_controller.launch_app(package_name)
+            # 1. Launch target app
+            self._launch_target(app)
             time.sleep(1.0)
 
             previous_screen_id: Optional[str] = None
@@ -137,7 +179,10 @@ class Orchestrator:
                     "purpose": screen.purpose,
                     "elements": compact_elements,
                     "previous_actions": list(state_manager.visited_actions),
-                    "app_package": package_name
+                    "app_name": app.name,
+                    "app_package": app.package,
+                    "app_platform": app.platform,
+                    "app_category": app.category
                 }
 
                 # Step 8: AI Agent selects next action
@@ -152,7 +197,7 @@ class Orchestrator:
                     logger.info("[Orchestrator] AI Agent decided exploration is complete.")
                     break
 
-                # Step 9: Execute action on Android device via ADB
+                # Step 9: Execute action on target environment
                 adb_controller.execute_action(action, elements=elements)
 
                 # Step 10: Record executed action in Knowledge Pack and State
@@ -194,7 +239,7 @@ class Orchestrator:
                     )
                 self.is_running = False
 
-            logger.info(f"[Orchestrator] Exploration ended successfully for '{package_name}'.")
+            logger.info(f"[Orchestrator] Exploration ended successfully for '{app.name}'.")
 
         except Exception as e:
             logger.exception(f"[Orchestrator] Error during exploration: {e}")

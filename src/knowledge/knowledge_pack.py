@@ -48,10 +48,19 @@ class KnowledgeGenerator:
             self.steps_count = 0
             self.pack = KnowledgePackModel()
 
-    def set_app_info(self, name: str, package: str):
+    def set_app_info(
+        self,
+        name: str = "Demo App",
+        package: str = "com.example.demo",
+        app_info_obj: Optional[AppInfo] = None,
+        **kwargs
+    ):
         """Sets application metadata."""
         with self._lock:
-            self.app_info = AppInfo(name=name, package=package)
+            if app_info_obj is not None:
+                self.app_info = app_info_obj
+            else:
+                self.app_info = AppInfo(name=name, package=package, **kwargs)
 
     def set_design_info(self, design: DesignInfo):
         """Sets design system information."""
