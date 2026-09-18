@@ -1,23 +1,98 @@
 {
-  "status": "stopped",
-  "package_name": "com.example.test",
-  "step": 1,
-  "screens_found": 1,
-  "actions_executed": 2,
+  "status": "completed",
+  "package_name": "com.fingersoft.hillclimb",
+  "step": 15,
+  "screens_found": 4,
+  "actions_executed": 14,
   "visited_screens": [
-    "screen_001"
+    "screen_001",
+    "screen_002",
+    "screen_003",
+    "screen_004"
   ],
   "visited_actions": [
     {
-      "type": "type",
-      "target_id": "search_field",
-      "text": "test@example.com",
+      "type": "tap",
+      "target_id": "stage_canyon",
+      "text": null,
       "direction": null
     },
     {
-      "type": "type",
-      "target_id": "search_field",
-      "text": "test@example.com",
+      "type": "tap",
+      "target_id": "btn_upgrade_engine",
+      "text": null,
+      "direction": null
+    },
+    {
+      "type": "tap",
+      "target_id": "btn_brake_pedal",
+      "text": null,
+      "direction": null
+    },
+    {
+      "type": "tap",
+      "target_id": "btn_double_coins",
+      "text": null,
+      "direction": null
+    },
+    {
+      "type": "tap",
+      "target_id": "stage_desert",
+      "text": null,
+      "direction": null
+    },
+    {
+      "type": "tap",
+      "target_id": "btn_upgrade_suspension",
+      "text": null,
+      "direction": null
+    },
+    {
+      "type": "tap",
+      "target_id": "btn_gas_pedal",
+      "text": null,
+      "direction": null
+    },
+    {
+      "type": "tap",
+      "target_id": "btn_retry_stage",
+      "text": null,
+      "direction": null
+    },
+    {
+      "type": "tap",
+      "target_id": "stage_arctic",
+      "text": null,
+      "direction": null
+    },
+    {
+      "type": "tap",
+      "target_id": "btn_upgrade_tires",
+      "text": null,
+      "direction": null
+    },
+    {
+      "type": "tap",
+      "target_id": "btn_pause_race",
+      "text": null,
+      "direction": null
+    },
+    {
+      "type": "tap",
+      "target_id": "btn_return_garage",
+      "text": null,
+      "direction": null
+    },
+    {
+      "type": "tap",
+      "target_id": "stage_moon",
+      "text": null,
+      "direction": null
+    },
+    {
+      "type": "tap",
+      "target_id": "btn_upgrade_4wd",
+      "text": null,
       "direction": null
     }
   ],

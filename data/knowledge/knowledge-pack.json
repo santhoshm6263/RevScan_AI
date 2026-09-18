@@ -1,38 +1,38 @@
 {
   "app": {
-    "name": "Test",
-    "package": "com.example.test",
+    "name": "Hill Climb Racing",
+    "package": "com.fingersoft.hillclimb",
     "platform": "android",
-    "developer": "Google Play Developer",
-    "category": "Application",
-    "rating": 4.5,
-    "icon_url": "https://raw.githubusercontent.com/google/material-design-icons/master/png/action/android/materialicons/48dp/2x/baseline_android_black_48dp.png",
-    "store_url": "https://play.google.com/store/apps/details?id=com.example.test&hl=en&gl=US",
-    "description": "Android application package 'com.example.test' from Google Play Store.",
-    "version": "1.0.0"
+    "developer": "Fingersoft",
+    "category": "Racing",
+    "rating": 4.2,
+    "icon_url": "https://play-lh.googleusercontent.com/7YJtBKClRTrPRIO-vm-_GoqAEwob4kQ-wJd0qmUMLdbor5Jxj-IKpsXOj6MQejf2XYN9YE0q6IUgYnu-fcAGIg=s0-br30",
+    "store_url": "https://play.google.com/store/apps/details?id=com.fingersoft.hillclimb&hl=en&gl=US",
+    "description": "Hill Climb Racing is free to download and play and includes optional in-app purchases, including random-item purchases. You can disable in-app purchases in your device settings. _______________________ Play the original classic Hill Climb Racing! Race your way uphill in this physics based driving game, playable offline! Meet Bill, the young aspiring uphill racer. He is about to embark on a journey through Climb Canyon that takes him to where no ride has ever been before. With little respect to the laws of physics, Bill will not rest until he has conquered the highest hills up on the moon! Face challenges in unique hill climbing environments with a wide variety of cars to choose from. Earn points from daring tricks and collect coins to upgrade your car and travel further distances. Watch out though - Bill's neck is not what it used to be when he was a kid! And his good old gasoline crematorium will easily run out of fuel. Features:: Fresh Content We are still actively developing Hill Climb Racing and adding new vehicles, new stages and new content! Unique Vehicles Get behind the wheel of a wide variety of different vehicles. From the iconic Hill Climber to bikes, race cars, trucks and even some outlandish vehicles such as the creepy Carantula! Half car, half tarantula, do you dare drive it? Play Offline Race offline whenever and wherever you want! Hill Climb Racing is playable completely offline. Play it on a bus, plane or train! Play it anywhere! Wacky Stages Climb Canyon is full of unique challenges and stages for you to overcome with vastly different terrains and hazards. How far can you drive without running out of gas or crashing your vehicle? Unlock and Upgrade Tune up and fix your dream vehicle with custom parts, skins and upgrades! Simulated Physics We worked hard on creating a one of a kind in-game physics system where your vehicles will react to the terrain in a unique manner, can you use this to your advantage and conquer the hills? Daily challenges and events Tackle the daily challenges and events to earn epic rewards! Remember that we're always reading your feedback and are hard at work creating new content and fixing any issues you may find. Please feel free to report what you like or dislike or any other issues you may have with the game to support@fingersoft.com. Follow Us: * Facebook: https://www.facebook.com/Fingersoft * X: https://twitter.com/HCR_Official_ * Website: https://www.fingersoft.com * Instagram: https://www.instagram.com/hillclimbracing_official * Discord: https://discord.com/invite/fingersoft * TikTok: https://www.tiktok.com/@hillclimbracing_game * Youtube: https://www.youtube.com/@FingersoftLtd Terms of Use: https://fingersoft.com/eula-web/ Privacy Policy: https://fingersoft.com/privacy-policy/",
+    "version": "Latest"
   },
   "scan": {
     "version": "1.0",
-    "screens_found": 1,
-    "elements_found": 5,
-    "steps": 2
+    "screens_found": 4,
+    "elements_found": 35,
+    "steps": 14
   },
   "design": {
-    "primary_color": "#2664EB",
-    "background_color": "#FFFFFF",
-    "theme": "light"
+    "primary_color": "#F05A0C",
+    "background_color": "#1E293B",
+    "theme": "dark"
   },
   "screens": [
     {
       "id": "screen_001",
-      "name": "Main Dashboard",
-      "purpose": "Main application landing dashboard and activity overview",
+      "name": "Stage Selection & Menu",
+      "purpose": "Main menu with campaign track and stage selection",
       "screenshot": "screenshots/screen_step_1.png",
       "elements": [
         {
-          "id": "dashboard_title",
+          "id": "menu_title",
           "type": "text",
-          "text": "Test - Main Dashboard",
+          "text": "Hill Climb Racing - Stage Selection",
           "bounds": [
             50,
             80,
@@ -43,53 +43,105 @@
           "input": false
         },
         {
-          "id": "search_field",
-          "type": "input",
-          "text": "Search Test...",
+          "id": "currency_bar",
+          "type": "text",
+          "text": "Coins: 14,850 | Gems: 45",
           "bounds": [
             50,
             200,
             1030,
-            300
+            280
           ],
-          "clickable": true,
-          "input": true
+          "clickable": false,
+          "input": false
         },
         {
-          "id": "btn_explore_feed",
+          "id": "stage_canyon",
           "type": "button",
-          "text": "Explore Application Feed",
+          "text": "Stage: Climb Canyon (Unlocked)",
           "bounds": [
             50,
-            340,
-            1030,
-            460
+            320,
+            510,
+            480
           ],
           "clickable": true,
           "input": false
         },
         {
-          "id": "btn_featured",
+          "id": "stage_desert",
           "type": "button",
-          "text": "Featured Content & Highlights",
+          "text": "Stage: Desert Dunes (Unlocked)",
           "bounds": [
-            50,
-            500,
+            570,
+            320,
             1030,
-            620
+            480
           ],
           "clickable": true,
           "input": false
         },
         {
-          "id": "btn_profile_nav",
+          "id": "stage_arctic",
           "type": "button",
-          "text": "User Profile & Preferences",
+          "text": "Stage: Arctic Hills (Unlocked)",
           "bounds": [
             50,
-            660,
+            520,
+            510,
+            680
+          ],
+          "clickable": true,
+          "input": false
+        },
+        {
+          "id": "stage_moon",
+          "type": "button",
+          "text": "Stage: Moon Crater (Unlocked)",
+          "bounds": [
+            570,
+            520,
             1030,
-            780
+            680
+          ],
+          "clickable": true,
+          "input": false
+        },
+        {
+          "id": "btn_start_race",
+          "type": "button",
+          "text": "Start Race (Climb Canyon)",
+          "bounds": [
+            50,
+            720,
+            1030,
+            860
+          ],
+          "clickable": true,
+          "input": false
+        },
+        {
+          "id": "btn_open_garage",
+          "type": "button",
+          "text": "Open Vehicle Garage",
+          "bounds": [
+            50,
+            900,
+            510,
+            1020
+          ],
+          "clickable": true,
+          "input": false
+        },
+        {
+          "id": "btn_daily_chest",
+          "type": "button",
+          "text": "Daily Bonus Chest",
+          "bounds": [
+            570,
+            900,
+            1030,
+            1020
           ],
           "clickable": true,
           "input": false
@@ -97,15 +149,640 @@
       ],
       "actions": [
         {
-          "type": "type",
-          "target_id": "search_field",
-          "text": "test@example.com",
+          "type": "tap",
+          "target_id": "stage_canyon",
+          "text": null,
+          "direction": null
+        },
+        {
+          "type": "tap",
+          "target_id": "stage_desert",
+          "text": null,
+          "direction": null
+        },
+        {
+          "type": "tap",
+          "target_id": "stage_arctic",
+          "text": null,
+          "direction": null
+        },
+        {
+          "type": "tap",
+          "target_id": "stage_moon",
+          "text": null,
           "direction": null
         }
       ],
-      "next_screens": []
+      "next_screens": [
+        "screen_002"
+      ]
+    },
+    {
+      "id": "screen_002",
+      "name": "Vehicle Garage & Upgrades",
+      "purpose": "Vehicle selection and engine/suspension/tires parts upgrade tuning",
+      "screenshot": "screenshots/screen_step_2.png",
+      "elements": [
+        {
+          "id": "garage_header",
+          "type": "text",
+          "text": "Hill Climb Racing - Vehicle Garage",
+          "bounds": [
+            50,
+            80,
+            1030,
+            180
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "vehicle_name",
+          "type": "text",
+          "text": "Vehicle: Hill Climber (Level 4)",
+          "bounds": [
+            50,
+            200,
+            1030,
+            280
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "btn_upgrade_engine",
+          "type": "button",
+          "text": "Upgrade Engine (+10 HP - 4,000 Coins)",
+          "bounds": [
+            50,
+            310,
+            1030,
+            430
+          ],
+          "clickable": true,
+          "input": false
+        },
+        {
+          "id": "btn_upgrade_suspension",
+          "type": "button",
+          "text": "Upgrade Suspension (+15 Stability - 2,500 Coins)",
+          "bounds": [
+            50,
+            460,
+            1030,
+            580
+          ],
+          "clickable": true,
+          "input": false
+        },
+        {
+          "id": "btn_upgrade_tires",
+          "type": "button",
+          "text": "Upgrade Tires (+20 Grip - 3,000 Coins)",
+          "bounds": [
+            50,
+            610,
+            1030,
+            730
+          ],
+          "clickable": true,
+          "input": false
+        },
+        {
+          "id": "btn_upgrade_4wd",
+          "type": "button",
+          "text": "Upgrade 4WD (+12 Traction - 5,000 Coins)",
+          "bounds": [
+            50,
+            760,
+            1030,
+            880
+          ],
+          "clickable": true,
+          "input": false
+        },
+        {
+          "id": "btn_custom_paint",
+          "type": "button",
+          "text": "Equip Custom Paint Skin",
+          "bounds": [
+            50,
+            910,
+            510,
+            1020
+          ],
+          "clickable": true,
+          "input": false
+        },
+        {
+          "id": "btn_next_vehicle",
+          "type": "button",
+          "text": "Next Vehicle: Monster Truck",
+          "bounds": [
+            570,
+            910,
+            1030,
+            1020
+          ],
+          "clickable": true,
+          "input": false
+        }
+      ],
+      "actions": [
+        {
+          "type": "tap",
+          "target_id": "btn_upgrade_engine",
+          "text": null,
+          "direction": null
+        },
+        {
+          "type": "tap",
+          "target_id": "btn_upgrade_suspension",
+          "text": null,
+          "direction": null
+        },
+        {
+          "type": "tap",
+          "target_id": "btn_upgrade_tires",
+          "text": null,
+          "direction": null
+        },
+        {
+          "type": "tap",
+          "target_id": "btn_upgrade_4wd",
+          "text": null,
+          "direction": null
+        }
+      ],
+      "next_screens": [
+        "screen_003"
+      ]
+    },
+    {
+      "id": "screen_003",
+      "name": "Race Track & Driving HUD",
+      "purpose": "Active in-game racing track HUD with gas, brake, and fuel meters",
+      "screenshot": "screenshots/screen_step_3.png",
+      "elements": [
+        {
+          "id": "hud_header",
+          "type": "text",
+          "text": "Hill Climb Racing - Race Track HUD",
+          "bounds": [
+            50,
+            80,
+            1030,
+            160
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "gauge_distance",
+          "type": "text",
+          "text": "Distance: 890m (Record: 1,450m)",
+          "bounds": [
+            50,
+            180,
+            510,
+            260
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "gauge_fuel",
+          "type": "text",
+          "text": "Fuel Gauge: 62% Remaining",
+          "bounds": [
+            570,
+            180,
+            1030,
+            260
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "gauge_speedometer",
+          "type": "text",
+          "text": "Speedometer: 76 km/h (RPM: 4200)",
+          "bounds": [
+            50,
+            280,
+            510,
+            360
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "coin_counter",
+          "type": "text",
+          "text": "Coins Collected: +380",
+          "bounds": [
+            570,
+            280,
+            1030,
+            360
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "stunt_badge",
+          "type": "text",
+          "text": "Air Time Stunt (+50 Coins)",
+          "bounds": [
+            300,
+            400,
+            780,
+            480
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "btn_brake_pedal",
+          "type": "button",
+          "text": "Brake / Reverse Pedal (Left)",
+          "bounds": [
+            50,
+            1500,
+            450,
+            1850
+          ],
+          "clickable": true,
+          "input": false
+        },
+        {
+          "id": "btn_gas_pedal",
+          "type": "button",
+          "text": "Gas / Accelerate Pedal (Right)",
+          "bounds": [
+            630,
+            1500,
+            1030,
+            1850
+          ],
+          "clickable": true,
+          "input": false
+        },
+        {
+          "id": "btn_pause_race",
+          "type": "button",
+          "text": "Pause Race",
+          "bounds": [
+            900,
+            80,
+            1030,
+            160
+          ],
+          "clickable": true,
+          "input": false
+        }
+      ],
+      "actions": [
+        {
+          "type": "tap",
+          "target_id": "btn_brake_pedal",
+          "text": null,
+          "direction": null
+        },
+        {
+          "type": "tap",
+          "target_id": "btn_gas_pedal",
+          "text": null,
+          "direction": null
+        },
+        {
+          "type": "tap",
+          "target_id": "btn_pause_race",
+          "text": null,
+          "direction": null
+        }
+      ],
+      "next_screens": [
+        "screen_004"
+      ]
+    },
+    {
+      "id": "screen_004",
+      "name": "Stage Rewards & Results",
+      "purpose": "Race summary, distance traveled, and earned coin rewards",
+      "screenshot": "screenshots/screen_step_4.png",
+      "elements": [
+        {
+          "id": "results_header",
+          "type": "text",
+          "text": "Hill Climb Racing - Stage Rewards & Results",
+          "bounds": [
+            50,
+            80,
+            1030,
+            180
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "result_status",
+          "type": "text",
+          "text": "Stage Over: Out of Fuel!",
+          "bounds": [
+            50,
+            200,
+            1030,
+            280
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "stat_distance",
+          "type": "text",
+          "text": "Distance Traveled: 940m (+940 Coins)",
+          "bounds": [
+            50,
+            310,
+            1030,
+            390
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "stat_coins",
+          "type": "text",
+          "text": "Coins Picked Up: +380 Coins",
+          "bounds": [
+            50,
+            420,
+            1030,
+            500
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "stat_stunts",
+          "type": "text",
+          "text": "Air Time & Stunt Bonus: +450 Coins",
+          "bounds": [
+            50,
+            530,
+            1030,
+            610
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "total_reward",
+          "type": "text",
+          "text": "Total Reward: 1,770 Coins",
+          "bounds": [
+            50,
+            640,
+            1030,
+            740
+          ],
+          "clickable": false,
+          "input": false
+        },
+        {
+          "id": "btn_double_coins",
+          "type": "button",
+          "text": "Claim 2x Coins (Watch Video)",
+          "bounds": [
+            50,
+            770,
+            1030,
+            890
+          ],
+          "clickable": true,
+          "input": false
+        },
+        {
+          "id": "btn_retry_stage",
+          "type": "button",
+          "text": "Retry Stage",
+          "bounds": [
+            50,
+            920,
+            510,
+            1040
+          ],
+          "clickable": true,
+          "input": false
+        },
+        {
+          "id": "btn_return_garage",
+          "type": "button",
+          "text": "Return to Vehicle Garage",
+          "bounds": [
+            570,
+            920,
+            1030,
+            1040
+          ],
+          "clickable": true,
+          "input": false
+        }
+      ],
+      "actions": [
+        {
+          "type": "tap",
+          "target_id": "btn_double_coins",
+          "text": null,
+          "direction": null
+        },
+        {
+          "type": "tap",
+          "target_id": "btn_retry_stage",
+          "text": null,
+          "direction": null
+        },
+        {
+          "type": "tap",
+          "target_id": "btn_return_garage",
+          "text": null,
+          "direction": null
+        }
+      ],
+      "next_screens": [
+        "screen_001"
+      ]
     }
   ],
-  "journeys": [],
-  "transitions": []
+  "journeys": [
+    {
+      "id": "journey_001",
+      "name": "Flow from Stage Selection & Menu",
+      "description": "Navigation flow starting from screen_001",
+      "steps": [
+        {
+          "screen_id": "screen_001",
+          "action": "launch",
+          "screen_name": "Stage Selection & Menu"
+        },
+        {
+          "screen_id": "screen_002",
+          "action": "tap:stage_canyon",
+          "screen_name": "Vehicle Garage & Upgrades"
+        },
+        {
+          "screen_id": "screen_003",
+          "action": "tap:btn_upgrade_engine",
+          "screen_name": "Race Track & Driving HUD"
+        },
+        {
+          "screen_id": "screen_004",
+          "action": "tap:btn_brake_pedal",
+          "screen_name": "Stage Rewards & Results"
+        },
+        {
+          "screen_id": "screen_001",
+          "action": "tap:btn_double_coins",
+          "screen_name": "Stage Selection & Menu"
+        }
+      ]
+    },
+    {
+      "id": "journey_002",
+      "name": "Flow from Stage Selection & Menu",
+      "description": "Navigation flow starting from screen_001",
+      "steps": [
+        {
+          "screen_id": "screen_001",
+          "action": "launch",
+          "screen_name": "Stage Selection & Menu"
+        },
+        {
+          "screen_id": "screen_002",
+          "action": "tap:stage_canyon",
+          "screen_name": "Vehicle Garage & Upgrades"
+        },
+        {
+          "screen_id": "screen_003",
+          "action": "tap:btn_upgrade_engine",
+          "screen_name": "Race Track & Driving HUD"
+        },
+        {
+          "screen_id": "screen_004",
+          "action": "tap:btn_brake_pedal",
+          "screen_name": "Stage Rewards & Results"
+        },
+        {
+          "screen_id": "screen_001",
+          "action": "tap:btn_retry_stage",
+          "screen_name": "Stage Selection & Menu"
+        }
+      ]
+    },
+    {
+      "id": "journey_003",
+      "name": "Flow from Stage Selection & Menu",
+      "description": "Navigation flow starting from screen_001",
+      "steps": [
+        {
+          "screen_id": "screen_001",
+          "action": "launch",
+          "screen_name": "Stage Selection & Menu"
+        },
+        {
+          "screen_id": "screen_002",
+          "action": "tap:stage_canyon",
+          "screen_name": "Vehicle Garage & Upgrades"
+        },
+        {
+          "screen_id": "screen_003",
+          "action": "tap:btn_upgrade_engine",
+          "screen_name": "Race Track & Driving HUD"
+        },
+        {
+          "screen_id": "screen_004",
+          "action": "tap:btn_brake_pedal",
+          "screen_name": "Stage Rewards & Results"
+        },
+        {
+          "screen_id": "screen_001",
+          "action": "tap:btn_return_garage",
+          "screen_name": "Stage Selection & Menu"
+        }
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "from": "screen_001",
+      "action": "tap:stage_canyon",
+      "to": "screen_002"
+    },
+    {
+      "from": "screen_002",
+      "action": "tap:btn_upgrade_engine",
+      "to": "screen_003"
+    },
+    {
+      "from": "screen_003",
+      "action": "tap:btn_brake_pedal",
+      "to": "screen_004"
+    },
+    {
+      "from": "screen_004",
+      "action": "tap:btn_double_coins",
+      "to": "screen_001"
+    },
+    {
+      "from": "screen_001",
+      "action": "tap:stage_desert",
+      "to": "screen_002"
+    },
+    {
+      "from": "screen_002",
+      "action": "tap:btn_upgrade_suspension",
+      "to": "screen_003"
+    },
+    {
+      "from": "screen_003",
+      "action": "tap:btn_gas_pedal",
+      "to": "screen_004"
+    },
+    {
+      "from": "screen_004",
+      "action": "tap:btn_retry_stage",
+      "to": "screen_001"
+    },
+    {
+      "from": "screen_001",
+      "action": "tap:stage_arctic",
+      "to": "screen_002"
+    },
+    {
+      "from": "screen_002",
+      "action": "tap:btn_upgrade_tires",
+      "to": "screen_003"
+    },
+    {
+      "from": "screen_003",
+      "action": "tap:btn_pause_race",
+      "to": "screen_004"
+    },
+    {
+      "from": "screen_004",
+      "action": "tap:btn_return_garage",
+      "to": "screen_001"
+    },
+    {
+      "from": "screen_001",
+      "action": "tap:stage_moon",
+      "to": "screen_002"
+    },
+    {
+      "from": "screen_002",
+      "action": "tap:btn_upgrade_4wd",
+      "to": "screen_003"
+    }
+  ]
 }

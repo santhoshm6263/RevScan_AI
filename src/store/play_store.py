@@ -96,7 +96,7 @@ PLAY_STORE_PROFILES: Dict[str, Dict[str, Any]] = {
 
 
 class PlayStoreResolver:
-    """Extracts and resolves metadata for Android apps from Google Play Store."""
+    """Extracts and resolves comprehensive metadata for Android apps from Google Play Store."""
 
     @staticmethod
     def extract_package_id(query_or_url: str) -> str:
@@ -125,7 +125,7 @@ class PlayStoreResolver:
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
                 "Accept-Language": "en-US,en;q=0.9"
             }
-            with httpx.Client(timeout=6.0, follow_redirects=True, headers=headers) as client:
+            with httpx.Client(timeout=8.0, follow_redirects=True, headers=headers) as client:
                 resp = client.get(store_url)
                 if resp.status_code == 200:
                     html_text = resp.text
@@ -155,25 +155,45 @@ class PlayStoreResolver:
         }
 
     def _parse_play_store_html(self, html_text: str, package_id: str, store_url: str) -> Dict[str, Any]:
-        """Parses Google Play Store HTML markup."""
-        # 1. Title
+        """Parses Google Play Store HTML markup with comprehensive metadata and description extraction."""
+        # 1. Title / Name
         title_match = re.search(r"<h1[^>]*>.*?<span[^>]*>(.*?)</span>", html_text, re.DOTALL)
         if not title_match:
-            title_match = re.search(r'<meta property="og:title" content="(.*?)"', html_text)
+            title_match = re.search(r'<meta property="og:title"\s+content="([^"]*)"', html_text)
+        if not title_match:
+            title_match = re.search(r'<meta content="([^"]*)"\s+property="og:title"', html_text)
         raw_name = title_match.group(1).strip() if title_match else package_id.split(".")[-1].capitalize()
         name = clean_html_text(raw_name.split(" - Apps on Google Play")[0])
 
         # 2. Icon URL
-        icon_match = re.search(r'<meta property="og:image" content="(.*?)"', html_text)
+        icon_match = re.search(r'<meta property="og:image"\s+content="([^"]*)"', html_text)
+        if not icon_match:
+            icon_match = re.search(r'<meta content="([^"]*)"\s+property="og:image"', html_text)
         icon_url = icon_match.group(1).strip() if icon_match else ""
 
-        # 3. Description
-        desc_match = re.search(r'<meta property="og:description" content="(.*?)"', html_text)
-        description = clean_html_text(desc_match.group(1)) if desc_match else ""
+        # 3. Comprehensive Full Description
+        description = ""
+        # Try full description container
+        desc_div_match = re.search(r'data-g-id="description"[^>]*>(.*?)</div>', html_text, re.DOTALL)
+        if desc_div_match:
+            raw_desc = re.sub(r'<br\s*/?>', '\n', desc_div_match.group(1))
+            description = clean_html_text(raw_desc)
+        
+        # Fallback to meta description if container missing
+        if not description:
+            desc_match = re.search(r'<meta\s+[^>]*name="description"[^>]*content="([^"]*)"', html_text)
+            if not desc_match:
+                desc_match = re.search(r'<meta\s+[^>]*content="([^"]*)"[^>]*name="description"', html_text)
+            if not desc_match:
+                desc_match = re.search(r'<meta\s+[^>]*property="og:description"[^>]*content="([^"]*)"', html_text)
+            if desc_match:
+                description = clean_html_text(desc_match.group(1))
 
         # 4. Rating
         rating = 4.5
         rating_match = re.search(r'aria-label="Rated ([\d.]+) stars out of five stars"', html_text)
+        if not rating_match:
+            rating_match = re.search(r'itemprop="ratingValue"[^>]*content="([\d.]+)"', html_text)
         if rating_match:
             try:
                 rating = float(rating_match.group(1))
@@ -181,16 +201,33 @@ class PlayStoreResolver:
                 pass
 
         # 5. Developer
-        dev_match = re.search(r'href="/store/apps/developer\?id=[^"]*"[^>]*>(.*?)</a>', html_text, re.DOTALL)
-        if not dev_match:
-            dev_match = re.search(r'href="/store/apps/developer\?id=[^"]*"[^>]*><span[^>]*>(.*?)</span>', html_text)
-        developer = clean_html_text(dev_match.group(1)) if dev_match else "Google Play Developer"
+        developer = "Google Play Developer"
+        dev_span_match = re.search(r'/store/apps/dev\?id=\d+"[^>]*><span[^>]*>([^<]+)</span>', html_text)
+        if not dev_span_match:
+            dev_span_match = re.search(r'/store/apps/developer\?id=[^"]*"[^>]*><span[^>]*>([^<]+)</span>', html_text)
+        if not dev_span_match:
+            dev_span_match = re.search(r'itemprop="author"[^>]*><span[^>]*>([^<]+)</span>', html_text)
+        if dev_span_match:
+            developer = clean_html_text(dev_span_match.group(1))
 
-        # 6. Category
+        # 6. Category / Genre
         cat_match = re.search(r'itemprop="genre"[^>]*>(.*?)</a>', html_text, re.DOTALL)
         if not cat_match:
             cat_match = re.search(r'itemprop="genre"[^>]*>(.*?)</span>', html_text, re.DOTALL)
+        if not cat_match:
+            cat_match = re.search(r'href="/store/apps/category/([^"]+)"', html_text)
         category = clean_html_text(cat_match.group(1)) if cat_match else "Application"
+        category = category.replace("GAME_", "").replace("_", " ").title()
+
+        # 7. Extract authentic screenshots if present
+        img_urls = re.findall(r'https://play-lh\.googleusercontent\.com/[a-zA-Z0-9_\-=]+', html_text)
+        screenshots = []
+        for u in img_urls:
+            if "=w" in u or "=s0" in u:
+                if u not in screenshots and u != icon_url:
+                    screenshots.append(u)
+            if len(screenshots) >= 6:
+                break
 
         return {
             "name": name or package_id,
@@ -202,7 +239,7 @@ class PlayStoreResolver:
             "store_url": store_url,
             "description": description,
             "version": "Latest",
-            "screenshots": []
+            "screenshots": screenshots
         }
 
 
